@@ -1,5 +1,7 @@
 <template>
   <div>
+
+    <!--导航区域-->
     <div class="app-header">
       <div class="app-head-inner">
         <img src="../assets/logo.png" alt="">
@@ -14,10 +16,25 @@
         </div>
       </div>
     </div>
-    <div class="app-content">content</div>
+    <!--导航区域结束-->
+
+    <!--内容区域-->
+    <div class="app-content">
+      <!--设置路由占用位置-->
+
+      <!--设置单页面切换的缓存-->
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+
+    </div>
+    <!--内容区域结束-->
+
+    <!--底部-->
     <div class="app-footer">
       <p>&copy; 2017 Lance MIT</p>
     </div>
+    <!--底部结束-->
   </div>
 </template>
 
