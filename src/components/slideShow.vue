@@ -13,11 +13,13 @@
 
     <!--页码-->
     <ul class="slide-pages">
-      <li v-on:click="gotoPre">&lt;</li>
+      <!--<li v-on:click="gotoPre">&lt;</li>-->
+      <li v-on:click="goto(pre)">&lt;</li>
       <li v-for="(item, index) in slides" v-on:click="goto(index)">
-        <a>{{ index + 1 }}</a>
+        <a v-bind:class="{on: index === nowIndex}">{{ index + 1 }}</a>
       </li>
-      <li v-on:click="gotoNext">&gt;</li>
+      <!--<li v-on:click="gotoNext">&gt;</li>-->
+      <li v-on:click="goto(next)">&gt;</li>
     </ul>
 
   </div>
@@ -46,7 +48,7 @@
 
     // 使用声明周期钩子方法
     mounted(){
-      console.log(this.slides);
+//      console.log(this.slides);
     },
 
     // 自定义方法
@@ -60,27 +62,45 @@
 
       },
 
-      gotoPre(){
-        console.log('pre');
-
-        if(this.nowIndex === 0){
-            this.nowIndex = this.slides.length - 1;
-        } else {
-            this.nowIndex --;
-        }
-      },
-
-      gotoNext(){
-        console.log('next');
-        if(this.nowIndex === this.slides.length - 1){
-            this.nowIndex = 0;
-        } else {
-            this.nowIndex ++;
-        }
-      },
+//      gotoPre(){
+//        console.log('pre');
+//
+//        if (this.nowIndex === 0) {
+//          this.nowIndex = this.slides.length - 1;
+//        } else {
+//          this.nowIndex--;
+//        }
+//      },
+//
+//      gotoNext(){
+//        console.log('next');
+//        if (this.nowIndex === this.slides.length - 1) {
+//          this.nowIndex = 0;
+//        } else {
+//          this.nowIndex++;
+//        }
+//      },
     },
 
     // 使用计算型属性进行翻页
+    computed: {
+      pre(){
+        if (this.nowIndex === 0) {
+//          this.nowIndex = this.slides.length - 1;
+          return this.slides.length - 1;
+        }
+        return this.nowIndex - 1;
+      },
+
+      next(){
+        if (this.nowIndex === this.slides.length - 1) {
+//          this.nowIndex = 0;
+          return 0;
+        }
+//        this.nowIndex++;
+        return this.nowIndex + 1;
+      }
+    }
 
   }
 </script>
@@ -145,5 +165,6 @@
 
   .slide-pages li .on {
     text-decoration: underline;
+    color: skyblue;
   }
 </style>
