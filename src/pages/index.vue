@@ -66,6 +66,17 @@
 
 <script>
   export default{
+
+    // 使用声明周期钩子方法
+    created: function () {
+      // 当组件创建完毕的时候调用
+      this.$http.get('getList').then(function successCallBack(response) {
+        console.log(response);
+      }, function errorCallBack(error) {
+        console.log(error);
+      });
+    },
+
     data(){
       return {
 

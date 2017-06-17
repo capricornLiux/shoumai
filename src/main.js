@@ -7,12 +7,18 @@ import Layout from './components/layout.vue'
 // 导入vue-router
 import VueRouter from 'vue-router'
 
+// 导入vue-resource
+import VueResource from 'vue-resource'
+
 import IndexPage from './pages/index.vue'
 
 Vue.config.productionTip = false
 
 // use vue-router 进行注册
 Vue.use(VueRouter);
+
+// vue-resource进行注册
+Vue.use(VueResource);
 
 // 实例化vue-router
 let router = new VueRouter({
