@@ -41,7 +41,8 @@
     <div class="index-right">
 
       <!--轮播图-->
-      <slide-show :slides="slides" :inv="invTime"></slide-show>
+      <!--使用自定义的组件进行轮播图的展示-->
+      <slide-show v-bind:slides=""></slide-show>
       <!--轮播图结束-->
 
 
@@ -65,7 +66,16 @@
 </template>
 
 <script>
+
+  // 导入幻灯片组件
+  import slideShow from '../components/slideShow.vue'
+
   export default{
+
+      // 注册组件
+    components : {
+        slideShow
+    },
 
     // 使用声明周期钩子方法
     created: function () {
@@ -183,6 +193,36 @@
             imgId: 'mountain',
 
           },
+        ],
+
+        // 幻灯片数据
+        slides: [
+          {
+              // require通过webpack解析到响应的位置, 打包以后, 这里的位置会更换为对应的图片地址, 如果不适用require, 找不到, webpack不知道图片作为模块放到文档中
+            // 什么时候需要用到require引用图片呢?
+            // 1. 图片通过js引入到文档中, 放到script部分
+            // 2. 模板中的scr不需要
+            // 3. css中也不需要
+
+            src: require('../assets/slideShow/pic1.jpg'),
+            title: '幻灯片1',
+            href: 'detail/analysis'
+          },
+          {
+            src: require('../assets/slideShow/pic2.jpg'),
+            title: '幻灯片2',
+            href: 'detail/count'
+          },
+          {
+            src: require('../assets/slideShow/pic3.jpg'),
+            title: '幻灯片3',
+            href: 'http://xxx.xxx.com'
+          },
+          {
+            src: require('../assets/slideShow/pic4.jpg'),
+            title: '幻灯片4',
+            href: 'detail/forecast'
+          }
         ]
       }
     }
