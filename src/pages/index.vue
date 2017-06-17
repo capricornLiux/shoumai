@@ -42,7 +42,7 @@
 
       <!--轮播图-->
       <!--使用自定义的组件进行轮播图的展示-->
-      <slide-show v-bind:slides=""></slide-show>
+      <slide-show v-bind:slides="slides"></slide-show>
       <!--轮播图结束-->
 
 
