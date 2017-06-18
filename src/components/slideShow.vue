@@ -1,5 +1,5 @@
 <template>
-  <div class="slide-show">
+  <div class="slide-show" v-on:mouseover="cancelInterval" v-on:mouseout="startInterval">
 
     <!--图片-->
     <div class="slide-img">
@@ -36,6 +36,12 @@
         // 设置数据的默认值
         default: []
 
+      },
+
+      // 父组件传递的轮播时间
+      slideTime: {
+        type: Number,
+        default: 1000
       }
     },
 
@@ -49,6 +55,9 @@
     // 使用声明周期钩子方法
     mounted(){
 //      console.log(this.slides);
+
+      // 当组件挂在成功的时候就开启自动轮播
+      this.startInterval();
     },
 
     // 自定义方法
@@ -56,11 +65,30 @@
 
       // 跳转到第几页的幻灯片
       goto(index) {
-        console.log(index);
+//        console.log(index);
 
         this.nowIndex = index;
 
       },
+
+      // 开启定时器的方法
+      startInterval(){
+
+          var self = this;
+        // 开启定时器
+        this.intervalId = setInterval(function () {
+          // 调用goto方法, 传递计算型属性
+
+          console.log('timer');
+
+          self.goto(this.next);
+        }, this.slideTime);
+      },
+
+      // 取消定时器
+      cancelInterval(){
+        clearInterval(this.intervalId);
+      }
 
 //      gotoPre(){
 //        console.log('pre');
