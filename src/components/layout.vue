@@ -33,15 +33,26 @@
     <!--底部-->
     <div class="app-footer">
       <p>&copy; 2017 Lance MIT</p>
+
+      <!--测试dialog-->
+      <Dialog></Dialog>
     </div>
     <!--底部结束-->
   </div>
 </template>
 
 <script>
+
+  // 导入对话框组件
+  import Dialog from '../components/dialog.vue'
+
   export default{
     data(){
       return {}
+    },
+
+    components : {
+      Dialog
     }
   }
 </script>

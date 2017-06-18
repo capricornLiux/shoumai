@@ -72,9 +72,10 @@
 
   export default{
 
-      // 注册组件
-    components : {
-        slideShow
+    // 注册组件
+    components: {
+      slideShow,
+
     },
 
     // 使用声明周期钩子方法
@@ -198,7 +199,7 @@
         // 幻灯片数据
         slides: [
           {
-              // require通过webpack解析到响应的位置, 打包以后, 这里的位置会更换为对应的图片地址, 如果不适用require, 找不到, webpack不知道图片作为模块放到文档中
+            // require通过webpack解析到响应的位置, 打包以后, 这里的位置会更换为对应的图片地址, 如果不适用require, 找不到, webpack不知道图片作为模块放到文档中
             // 什么时候需要用到require引用图片呢?
             // 1. 图片通过js引入到文档中, 放到script部分
             // 2. 模板中的scr不需要
@@ -227,8 +228,8 @@
       }
     },
 
-    methods : {
-      listenSon : function () {
+    methods: {
+      listenSon: function () {
         console.log('父组件监听到了子组件的数据');
       }
     }
