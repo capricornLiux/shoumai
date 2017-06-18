@@ -52,12 +52,21 @@
       }
     },
 
-    // 使用声明周期钩子方法
-    mounted(){
-//      console.log(this.slides);
+    // 使用计算型属性进行翻页
+    computed: {
+      pre(){
+        if (this.nowIndex === 0) {
+          return this.slides.length - 1;
+        }
+        return this.nowIndex - 1;
+      },
 
-      // 当组件挂在成功的时候就开启自动轮播
-      this.startInterval();
+      next(){
+        if (this.nowIndex === this.slides.length - 1) {
+          return 0;
+        }
+        return this.nowIndex + 1;
+      }
     },
 
     // 自定义方法
@@ -65,8 +74,6 @@
 
       // 跳转到第几页的幻灯片
       goto(index) {
-//        console.log(index);
-
         this.nowIndex = index;
 
       },
@@ -74,14 +81,15 @@
       // 开启定时器的方法
       startInterval(){
 
-          var self = this;
         // 开启定时器
-        this.intervalId = setInterval(function () {
+        this.intervalId = setInterval(() => {
           // 调用goto方法, 传递计算型属性
 
-          console.log('timer');
+//          console.log(this);
 
-          self.goto(this.next);
+          // this指代当前组件
+
+          this.goto(this.next);
         }, this.slideTime);
       },
 
@@ -90,45 +98,16 @@
         clearInterval(this.intervalId);
       }
 
-//      gotoPre(){
-//        console.log('pre');
-//
-//        if (this.nowIndex === 0) {
-//          this.nowIndex = this.slides.length - 1;
-//        } else {
-//          this.nowIndex--;
-//        }
-//      },
-//
-//      gotoNext(){
-//        console.log('next');
-//        if (this.nowIndex === this.slides.length - 1) {
-//          this.nowIndex = 0;
-//        } else {
-//          this.nowIndex++;
-//        }
-//      },
     },
 
-    // 使用计算型属性进行翻页
-    computed: {
-      pre(){
-        if (this.nowIndex === 0) {
-//          this.nowIndex = this.slides.length - 1;
-          return this.slides.length - 1;
-        }
-        return this.nowIndex - 1;
-      },
+    // 使用声明周期钩子方法
+    mounted(){
 
-      next(){
-        if (this.nowIndex === this.slides.length - 1) {
-//          this.nowIndex = 0;
-          return 0;
-        }
-//        this.nowIndex++;
-        return this.nowIndex + 1;
-      }
-    }
+      // 当组件挂在成功的时候就开启自动轮播
+      this.startInterval();
+
+    },
+
 
   }
 </script>
