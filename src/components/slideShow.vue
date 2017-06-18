@@ -76,6 +76,9 @@
       goto(index) {
         this.nowIndex = index;
 
+        // 测试子组件向父组件传递数据
+        this.$emit('sonEmitEvent', {data: 'hello world'});
+
       },
 
       // 开启定时器的方法

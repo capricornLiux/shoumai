@@ -42,7 +42,7 @@
 
       <!--轮播图-->
       <!--使用自定义的组件进行轮播图的展示-->
-      <slide-show v-bind:slides="slides" v-bind:slideTime="2000"></slide-show>
+      <slide-show v-bind:slides="slides" v-bind:slideTime="2000" v-on:sonEmitEvent="listenSon"></slide-show>
       <!--轮播图结束-->
 
 
@@ -224,6 +224,12 @@
             href: 'detail/forecast'
           }
         ]
+      }
+    },
+
+    methods : {
+      listenSon : function () {
+        console.log('父组件监听到了子组件的数据');
       }
     }
   }
