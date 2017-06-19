@@ -7,11 +7,11 @@
         <img src="../assets/logo.png" alt="">
         <div class="head-nav">
           <ul class="nav-list">
-            <li>登录</li>
+            <li v-on:click="clickLogin">登录</li>
             <li class="nav-pile">|</li>
-            <li>注册</li>
+            <li v-on:click="clickRegister">注册</li>
             <li class="nav-pile">|</li>
-            <li>关于</li>
+            <li v-on:click="clickAbout">关于</li>
           </ul>
         </div>
       </div>
@@ -38,7 +38,7 @@
       <!--<Dialog></Dialog>-->
       <!--使用的时候不能使用html保留元素-->
       <!--注意大小写转换, html中不区分大小写, 统一改为小写-->
-      <my-dialog>
+      <my-dialog v-bind:is-show="isShowDialog">
         <p>hello world</p>
       </my-dialog>
     </div>
@@ -53,11 +53,34 @@
 
   export default{
     data(){
-      return {}
+      return {
+        // 是否显示对话框
+        isShowDialog: false
+      }
     },
 
-    components : {
-      MyDialog:Dialog
+    components: {
+      MyDialog: Dialog
+    },
+
+    methods: {
+
+      clickLogin(){
+        this.isShowDialog = true;
+        console.log('点击了登录按钮');
+      },
+
+      clickRegister(){
+        this.isShowDialog = true;
+        console.log('点击了注册按钮');
+      },
+
+      // 点击关于的时候调用
+      clickAbout(){
+        // 更改对话框显示属性
+        this.isShowDialog = true;
+        console.log('点击了关于按钮');
+      }
     }
   }
 </script>
@@ -132,7 +155,7 @@
   }
 
   /*头部*/
-  .app-header{
+  .app-header {
     background-color: #363636;
     color: #b2b2b2;
     height: 90px;
@@ -140,31 +163,31 @@
     width: 100%;
   }
 
-  .app-head-inner{
+  .app-head-inner {
     width: 1200px;
     height: 100%;
     /*background-color: lightskyblue;*/
     margin: 0 auto;
   }
 
-  .app-head-inner img{
+  .app-head-inner img {
     width: 50px;
     /*height: 100%;*/
     margin-top: 20px;
   }
 
-  .head-nav{
+  .head-nav {
     float: right;
     width: 200px;
     height: 100%;
   }
 
-  .head-nav .nav-list{
+  .head-nav .nav-list {
     width: 100%;
     height: 100%;
   }
 
-  .head-nav .nav-list li{
+  .head-nav .nav-list li {
     float: left;
     cursor: pointer;
   }
@@ -174,8 +197,7 @@
     margin-left: 10px;
   }
 
-
-  .app-footer{
+  .app-footer {
     width: 100%;
     height: 80px;
     text-align: center;
@@ -183,8 +205,6 @@
     background-color: #e3e4e8;
     margin-top: 30px;
   }
-
-
 
 
 </style>

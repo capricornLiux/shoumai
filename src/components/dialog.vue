@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="dialog-wrap">
+    <div class="dialog-wrap" v-show="isShow">
 
       <!--整个对话框的遮罩-->
       <div class="dialog-cover">
@@ -25,7 +25,13 @@
 
 <script>
   export default {
-
+    // 接收父组件传递的属性
+    props: {
+      isShow: {
+        type: Boolean,
+        default: false
+      }
+    }
   }
 </script>
 
@@ -33,12 +39,15 @@
   .drop-enter-active {
     transition: all .5s ease;
   }
+
   .drop-leave-active {
     transition: all .3s ease;
   }
+
   .drop-enter {
     transform: translateY(-500px);
   }
+
   .drop-leave-active {
     transform: translateY(-500px);
   }
@@ -48,8 +57,9 @@
     width: 100%;
     height: 100%;
   }
+
   .dialog-cover {
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
     /*opacity: .3;*/
     position: fixed;
     z-index: 5;
@@ -58,6 +68,7 @@
     width: 100%;
     height: 100%;
   }
+
   .dialog-content {
     opacity: 1;
     width: 50%;
@@ -73,6 +84,7 @@
     padding: 2%;
     line-height: 1.6;
   }
+
   .dialog-close {
     position: absolute;
     right: 5px;
@@ -82,6 +94,7 @@
     text-align: center;
     cursor: pointer;
   }
+
   .dialog-close:hover {
     color: #4fc08d;
   }
