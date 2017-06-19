@@ -38,9 +38,22 @@
       <!--<Dialog></Dialog>-->
       <!--使用的时候不能使用html保留元素-->
       <!--注意大小写转换, html中不区分大小写, 统一改为小写-->
-      <my-dialog v-bind:is-show="isShowDialog">
-        <p>hello world</p>
+
+      <!--关于-->
+      <my-dialog v-bind:is-show="isShowAboutDialog" v-on:closeDialog="receivedSonClose('isShowAboutDialog')">
+        <p>about</p>
       </my-dialog>
+
+      <!--登录-->
+      <my-dialog v-bind:is-show="isShowLoginDialog" v-on:closeDialog="receivedSonClose('isShowLoginDialog')">
+        <p>login</p>
+      </my-dialog>
+
+      <!--注册-->
+      <my-dialog v-bind:is-show="isShowRegisterDialog" v-on:closeDialog="receivedSonClose('isShowRegisterDialog')">
+        <p>register</p>
+      </my-dialog>
+
     </div>
     <!--底部结束-->
   </div>
@@ -55,7 +68,11 @@
     data(){
       return {
         // 是否显示对话框
-        isShowDialog: false
+//        isShowDialog: false
+
+        isShowAboutDialog : false,
+        isShowLoginDialog : false,
+        isShowRegisterDialog : false
       }
     },
 
@@ -66,20 +83,26 @@
     methods: {
 
       clickLogin(){
-        this.isShowDialog = true;
+        this.isShowLoginDialog = true;
         console.log('点击了登录按钮');
       },
 
       clickRegister(){
-        this.isShowDialog = true;
+        this.isShowRegisterDialog = true;
         console.log('点击了注册按钮');
       },
 
       // 点击关于的时候调用
       clickAbout(){
         // 更改对话框显示属性
-        this.isShowDialog = true;
+        this.isShowAboutDialog = true;
         console.log('点击了关于按钮');
+      },
+
+      receivedSonClose(attr){
+//        console.log(attr);
+//        console.log('received');
+        this[attr] = false;
       }
     }
   }

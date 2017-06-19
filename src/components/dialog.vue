@@ -3,13 +3,13 @@
     <div class="dialog-wrap" v-show="isShow">
 
       <!--整个对话框的遮罩-->
-      <div class="dialog-cover">
+      <div class="dialog-cover" v-on:click="closeDialog">
 
         <!--中间真正的对话框-->
         <div class="dialog-content">
 
           <!--关闭按钮-->
-          <p class="dialog-close">&times;</p>
+          <p class="dialog-close" v-on:click="closeDialog">&times;</p>
           <!--hello world-->
           <!--使用slot传递数据-->
           <!--在子组件中防止slot-->
@@ -30,6 +30,14 @@
       isShow: {
         type: Boolean,
         default: false
+      }
+    },
+
+    methods : {
+      closeDialog(){
+//          console.log('hello world');
+          this.$emit('closeDialog');
+
       }
     }
   }
