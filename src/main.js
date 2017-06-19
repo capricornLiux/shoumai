@@ -12,6 +12,9 @@ import VueResource from 'vue-resource'
 
 import IndexPage from './pages/index.vue'
 
+import Detail from './pages/detail.vue'
+
+
 Vue.config.productionTip = false
 
 // use vue-router 进行注册
@@ -28,10 +31,18 @@ let router = new VueRouter({
 
   // 配置map
   routes : [
+
+    // 首页
     {
       path : '/',
       component : IndexPage
 
+    },
+
+    // 点击商品的详情页面
+    {
+      path : '/detail',
+      component : Detail
     }
   ]
 });
