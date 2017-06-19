@@ -7,10 +7,13 @@
         <img src="../assets/logo.png" alt="">
         <div class="head-nav">
           <ul class="nav-list">
-            <li v-on:click="clickLogin">登录</li>
-            <li class="nav-pile">|</li>
-            <li v-on:click="clickRegister">注册</li>
-            <li class="nav-pile">|</li>
+            <li v-if="userInfo.hasOwnProperty('username')">欢迎您~ {{userInfo.username }}</li>
+            <li class="nav-pile" v-if="userInfo.hasOwnProperty('username')">|</li>
+            <li v-if="userInfo.hasOwnProperty('username')" v-on:click="logout">退出</li>
+            <li v-on:click="clickLogin" v-if="!userInfo.hasOwnProperty('username')">登录</li>
+            <li class="nav-pile" v-if="!userInfo.hasOwnProperty('username')">|</li>
+            <li v-on:click="clickRegister" v-if="!userInfo.hasOwnProperty('username')">注册</li>
+            <li class="nav-pile" v-if="userInfo">|</li>
             <li v-on:click="clickAbout">关于</li>
           </ul>
         </div>
@@ -47,7 +50,7 @@
       <!--登录-->
       <my-dialog v-bind:is-show="isShowLoginDialog" v-on:closeDialog="receivedSonClose('isShowLoginDialog')">
         <!--<p>login</p>-->
-        <login-form></login-form>
+        <login-form v-on:loginSuccess="receiveLoginSuccess"></login-form>
       </my-dialog>
 
       <!--注册-->
@@ -77,9 +80,10 @@
         // 是否显示对话框
 //        isShowDialog: false
 
-        isShowAboutDialog : false,
-        isShowLoginDialog : false,
-        isShowRegisterDialog : false
+        isShowAboutDialog: false,
+        isShowLoginDialog: false,
+        isShowRegisterDialog: false,
+        userInfo : {}
       }
     },
 
@@ -111,10 +115,29 @@
         console.log('点击了关于按钮');
       },
 
+      // 点击关闭按钮的时候进行调用, 收到子组件传递的数据
       receivedSonClose(attr){
 //        console.log(attr);
 //        console.log('received');
         this[attr] = false;
+      },
+
+      // 当登录成功的时候收到的方法进行调用
+      receiveLoginSuccess(userData){
+        console.log(userData);
+//        console.log('test');
+
+        // 手动点击关闭按钮的方法执行
+        this.receivedSonClose('isShowLoginDialog');
+
+        // 保存用户信息
+        this.userInfo = userData;
+
+      },
+
+      // 当用户点击退出按钮的时候进行调用
+      logout(){
+          this.userInfo = {};
       }
     }
   }

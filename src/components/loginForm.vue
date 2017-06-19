@@ -168,6 +168,7 @@
   }
 
   .g-form-input input {
+    outline: none;
     height: 30px;
     width: 200px;
     line-height: 30px;
@@ -187,6 +188,8 @@
     width: 80px;
     height: 20px;
     background-color: skyblue;
+
+    cursor: pointer;
 
   }
 
