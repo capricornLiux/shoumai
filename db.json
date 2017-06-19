@@ -20,5 +20,10 @@
       "title": "新闻条4广告发布",
       "url": "http://hearstone.com"
     }
-  ]
+  ],
+
+  "login": {
+    "username":"Lance",
+    "userId" : 888
+  }
 }
