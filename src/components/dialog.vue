@@ -24,6 +24,8 @@
 </template>
 
 <script>
+
+
   export default {
     // 接收父组件传递的属性
     props: {
@@ -33,13 +35,15 @@
       }
     },
 
-    methods : {
+    methods: {
       closeDialog(){
 //          console.log('hello world');
-          this.$emit('closeDialog');
+        this.$emit('closeDialog');
 
       }
-    }
+    },
+
+
   }
 </script>
 

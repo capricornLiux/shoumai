@@ -46,12 +46,14 @@
 
       <!--登录-->
       <my-dialog v-bind:is-show="isShowLoginDialog" v-on:closeDialog="receivedSonClose('isShowLoginDialog')">
-        <p>login</p>
+        <!--<p>login</p>-->
+        <login-form></login-form>
       </my-dialog>
 
       <!--注册-->
       <my-dialog v-bind:is-show="isShowRegisterDialog" v-on:closeDialog="receivedSonClose('isShowRegisterDialog')">
-        <p>register</p>
+        <!--<p>register</p>-->
+        <register-form></register-form>
       </my-dialog>
 
     </div>
@@ -63,6 +65,11 @@
 
   // 导入对话框组件
   import Dialog from './dialog.vue'
+
+
+  // 导入三个对话框组件
+  import LoginForm from './loginForm.vue'
+  import RegisterForm from './registerForm.vue'
 
   export default{
     data(){
@@ -77,7 +84,12 @@
     },
 
     components: {
-      MyDialog: Dialog
+      MyDialog: Dialog,
+
+      // 对话框组件中的内容
+      LoginForm,
+      RegisterForm
+
     },
 
     methods: {
