@@ -6,7 +6,7 @@
       <div class="dialog-cover" v-on:click="closeDialog">
 
         <!--中间真正的对话框-->
-        <div class="dialog-content">
+        <div class="dialog-content" v-on:click="stopProp($event)">
 
           <!--关闭按钮-->
           <p class="dialog-close" v-on:click="closeDialog">&times;</p>
@@ -40,6 +40,11 @@
 //          console.log('hello world');
         this.$emit('closeDialog');
 
+      },
+
+      // 阻止事件冒泡
+      stopProp($event){
+          $event.stopPropagation();
       }
     },
 
