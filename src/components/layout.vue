@@ -4,7 +4,12 @@
     <!--导航区域-->
     <div class="app-header">
       <div class="app-head-inner">
-        <img src="../assets/logo.png" alt="">
+
+        <!--点击导航栏的左侧图片跳转到首页-->
+        <router-link v-bind:to="{path : '/'}">
+          <img src="../assets/logo.png" alt="">
+        </router-link>
+
         <div class="head-nav">
           <ul class="nav-list">
             <li v-if="userInfo.hasOwnProperty('username')">欢迎您~ {{userInfo.username }}</li>
