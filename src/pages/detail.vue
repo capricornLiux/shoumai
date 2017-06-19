@@ -13,7 +13,10 @@
 
     <!--详情页面右侧-->
     <div class="detail-right">
-
+      <!--根据不同的左侧点击情况加载右侧对应的页面-->
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </div>
     <!--详情页面右侧结束-->
   </div>

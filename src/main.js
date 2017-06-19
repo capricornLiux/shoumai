@@ -14,6 +14,11 @@ import IndexPage from './pages/index.vue'
 
 import Detail from './pages/detail.vue'
 
+import AdPublic from './pages/detail/adPublic.vue'
+import DataStatistics from './pages/detail/dataStatistics.vue'
+import DataForecast from './pages/detail/dataForecast.vue'
+import FlowAnalysis from './pages/detail/flowAnalysis.vue'
+
 
 Vue.config.productionTip = false
 
@@ -42,7 +47,35 @@ let router = new VueRouter({
     // 点击商品的详情页面
     {
       path : '/detail',
-      component : Detail
+      component : Detail,
+
+      // 配置右侧子路由
+      children : [
+
+        // 配置path的时候不能够添加'/', 如果添加了的话, 会从根路由地址进行加载
+        // 数据统计
+        {
+          path : 'dataStatistics',
+          component : DataStatistics
+        },
+
+        // 数据预测
+        {
+          path : 'dataForecast',
+          component : DataForecast
+        },
+
+        // 流量分析
+        {
+          path : 'flowAnalysis',
+          component : FlowAnalysis
+        },
+        // 广告发布
+        {
+          path : 'adPublic',
+          component : AdPublic
+        }
+      ]
     }
   ]
 });
