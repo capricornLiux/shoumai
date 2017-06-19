@@ -49,6 +49,9 @@ let router = new VueRouter({
       path : '/detail',
       component : Detail,
 
+      // 设置默认跳转的子路由
+      redirect : '/detail/dataStatistics',
+
       // 配置右侧子路由
       children : [
 
