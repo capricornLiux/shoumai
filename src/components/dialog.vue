@@ -1,12 +1,24 @@
 <template>
   <div>
     <div class="dialog-wrap">
+
+      <!--整个对话框的遮罩-->
       <div class="dialog-cover">
+
+        <!--中间真正的对话框-->
         <div class="dialog-content">
+
+          <!--关闭按钮-->
           <p class="dialog-close">&times;</p>
-          hello world
+          <!--hello world-->
+          <!--使用slot传递数据-->
+          <!--在子组件中防止slot-->
+          <slot>empty</slot>
+
         </div>
+        <!--中间真正的对话框结束-->
       </div>
+      <!--整个对话框的遮罩结束-->
     </div>
   </div>
 </template>

@@ -35,7 +35,12 @@
       <p>&copy; 2017 Lance MIT</p>
 
       <!--测试dialog-->
-      <Dialog></Dialog>
+      <!--<Dialog></Dialog>-->
+      <!--使用的时候不能使用html保留元素-->
+      <!--注意大小写转换, html中不区分大小写, 统一改为小写-->
+      <my-dialog>
+        <p>hello world</p>
+      </my-dialog>
     </div>
     <!--底部结束-->
   </div>
@@ -44,7 +49,7 @@
 <script>
 
   // 导入对话框组件
-  import Dialog from '../components/dialog.vue'
+  import Dialog from './dialog.vue'
 
   export default{
     data(){
@@ -52,7 +57,7 @@
     },
 
     components : {
-      Dialog
+      MyDialog:Dialog
     }
   }
 </script>
