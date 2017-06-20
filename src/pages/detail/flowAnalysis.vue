@@ -10,9 +10,12 @@
         <div class="sales-board-line-left">
           购买数量：
         </div>
-        <!--<div class="sales-board-line-right">-->
-        <!--<v-counter @on-change="onParamChange('buyNum', $event)"></v-counter>-->
-        <!--</div>-->
+        <div class="sales-board-line-right">
+
+          <!--使用自定义组件counter-->
+          <v-counter></v-counter>
+
+        </div>
       </div>
       <div class="sales-board-line">
         <div class="sales-board-line-left">
@@ -124,13 +127,15 @@
   import VSelection from '../../components/buy/selection.vue'
   import VChooser from '../../components/buy/chooser.vue'
   import VMultiChooser from '../../components/buy/multiChooser.vue'
+  import VCounter from '../../components/buy/counter.vue'
 
   export default {
     // 组件
     components: {
       VSelection,
       VChooser,
-      VMultiChooser
+      VMultiChooser,
+      VCounter
     },
 
     // 数据
