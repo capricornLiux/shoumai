@@ -41,11 +41,13 @@
         <div class="sales-board-line-left">
           产品版本：
         </div>
-        <!--<div class="sales-board-line-right">-->
-        <!--<v-mul-chooser-->
-        <!--:selections="versionList"-->
-        <!--@on-change="onParamChange('versions', $event)"></v-mul-chooser>-->
-        <!--</div>-->
+        <div class="sales-board-line-right">
+
+          <!--利用自定义组件multi chooser-->
+          <v-multi-chooser v-bind:selections="versionList"
+                           v-on:seletedItemArray="receivedSelectMultiChooser"></v-multi-chooser>
+
+        </div>
       </div>
       <div class="sales-board-line">
         <div class="sales-board-line-left">
@@ -121,12 +123,14 @@
 <script>
   import VSelection from '../../components/buy/selection.vue'
   import VChooser from '../../components/buy/chooser.vue'
+  import VMultiChooser from '../../components/buy/multiChooser.vue'
 
   export default {
     // 组件
     components: {
       VSelection,
-      VChooser
+      VChooser,
+      VMultiChooser
     },
 
     // 数据
@@ -172,8 +176,17 @@
       },
 
       receivedSelectChooser(data){
-          console.log('点击了chooser');
-          console.log(data);
+        console.log('点击了chooser');
+        console.log(data);
+      },
+
+      /**
+       * 收到子组件multiChooser传递的数据的时候进行调用
+       * @param data 选中的数据
+       */
+      receivedSelectMultiChooser(data){
+        console.log('点击了multiChooser');
+        console.log(data);
       }
     }
   }
