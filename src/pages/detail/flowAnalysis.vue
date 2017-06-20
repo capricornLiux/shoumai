@@ -30,11 +30,12 @@
         <div class="sales-board-line-left">
           有效时间：
         </div>
-        <!--<div class="sales-board-line-right">-->
-        <!--<v-chooser-->
-        <!--:selections="periodList"-->
-        <!--@on-change="onParamChange('period', $event)"></v-chooser>-->
-        <!--</div>-->
+        <div class="sales-board-line-right">
+
+          <!--使用自定义组件chooser-->
+          <v-chooser v-bind:selections="versionList" v-on:seleteItem="receivedSelectChooser"></v-chooser>
+
+        </div>
       </div>
       <div class="sales-board-line">
         <div class="sales-board-line-left">
@@ -118,12 +119,14 @@
 </template>
 
 <script>
-  import VSelection from '../../components/buy/selection'
+  import VSelection from '../../components/buy/selection.vue'
+  import VChooser from '../../components/buy/chooser.vue'
 
   export default {
     // 组件
     components: {
       VSelection,
+      VChooser
     },
 
     // 数据
@@ -143,7 +146,22 @@
             label: '高级版',
             value: 2
           }
-        ]
+        ],
+
+        versionList: [
+          {
+            label: '客户版',
+            value: 0
+          },
+          {
+            label: '代理商版',
+            value: 1
+          },
+          {
+            label: '专家版',
+            value: 2
+          }
+        ],
       }
     },
 
@@ -151,6 +169,11 @@
       // 收到子组件选择的下拉选项的时候调用, 获取选择的选项
       receivedSelectDropItem(data){
         console.log(data);
+      },
+
+      receivedSelectChooser(data){
+          console.log('点击了chooser');
+          console.log(data);
       }
     }
   }
