@@ -71,9 +71,9 @@
           input = this.number;
         }
 
-        console.log(this.number);
-        console.log(this.max);
-        console.log(this.min);
+//        console.log(this.number);
+//        console.log(this.max);
+//        console.log(this.min);
 
 
         // 判断是否超出了范围
@@ -85,6 +85,13 @@
       }
 
 
+    },
+
+    // 监听属性的变化
+    watch:{
+        number(){
+            this.$emit('on-change', this.number);
+        }
     }
   }
 </script>

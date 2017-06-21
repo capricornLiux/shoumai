@@ -61,7 +61,9 @@
         });
 
         // 子组件向父组件传递数据
-        this.$emit('seletedItemArray', selectValueArray);
+//        this.$emit('seletedItemArray', selectValueArray);
+
+        this.$emit('on-change', selectValueArray);
       },
 
       /**

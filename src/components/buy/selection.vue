@@ -59,7 +59,8 @@
         this.nowIndex = index;
 
         // 向父组件传递选择的数据, 为计算总价做准备
-        this.$emit('selectDropItem', index);
+//        this.$emit('selectDropItem', index);
+        this.$emit('on-change', this.selections[this.nowIndex]);
 
         // 收起下拉列表
         this.isDrop = false;

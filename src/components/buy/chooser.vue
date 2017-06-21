@@ -32,6 +32,8 @@
       seleteItem(index){
         this.nowIndex = index;
         this.$emit('seleteItem', this.selections[index]);
+
+        this.$emit('on-change', this.selections[this.nowIndex]);
       }
     }
 

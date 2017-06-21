@@ -13,7 +13,7 @@
         <div class="sales-board-line-right">
 
           <!--使用自定义组件counter-->
-          <v-counter></v-counter>
+          <v-counter v-on:on-change="onParaChange('buyNum', $event)"></v-counter>
 
         </div>
       </div>
@@ -24,7 +24,10 @@
 
         <!--使用selection组件-->
         <div class="sales-board-line-right">
-          <v-selection v-bind:selections="goodsType" v-on:selectDropItem="receivedSelectDropItem"></v-selection>
+          <!--<v-selection v-bind:selections="goodsType" v-on:selectDropItem="receivedSelectDropItem"></v-selection>-->
+
+          <!--四个事件使用同一一个事件处理函数进行处理-->
+          <v-selection v-bind:selections="goodsType" v-on:on-change="onParaChange('buyType', $event)"></v-selection>
         </div>
 
 
@@ -36,7 +39,11 @@
         <div class="sales-board-line-right">
 
           <!--使用自定义组件chooser-->
-          <v-chooser v-bind:selections="versionList" v-on:seleteItem="receivedSelectChooser"></v-chooser>
+          <!--<v-chooser v-bind:selections="periodList" v-on:seleteItem="receivedSelectChooser"></v-chooser>-->
+
+
+          <!--使用同一个事件处理函数进行处理-->
+          <v-chooser v-bind:selections="periodList" v-on:on-change="onParaChange('period', $event)"></v-chooser>
 
         </div>
       </div>
@@ -47,8 +54,11 @@
         <div class="sales-board-line-right">
 
           <!--利用自定义组件multi chooser-->
-          <v-multi-chooser v-bind:selections="versionList"
-                           v-on:seletedItemArray="receivedSelectMultiChooser"></v-multi-chooser>
+          <!--<v-multi-chooser v-bind:selections="versionList"-->
+                           <!--v-on:seletedItemArray="receivedSelectMultiChooser"></v-multi-chooser>-->
+
+          <!--使用同一个事件处理函数进行处理-->
+          <v-multi-chooser v-bind:selections="versionList" v-on:on-change="onParaChange('versions', $event)"></v-multi-chooser>
 
         </div>
       </div>
@@ -141,6 +151,7 @@
     // 数据
     data(){
       return {
+          // 产品类型
         goodsType: [
           {
             label: '入门版',
@@ -157,6 +168,23 @@
           }
         ],
 
+        // 有效时间
+        periodList: [
+          {
+            label: '半年',
+            value: 0
+          },
+          {
+            label: '一年',
+            value: 1
+          },
+          {
+            label: '三年',
+            value: 2
+          }
+        ],
+
+        // 产品版本
         versionList: [
           {
             label: '客户版',
@@ -175,24 +203,40 @@
     },
 
     methods: {
+
+        /*
       // 收到子组件选择的下拉选项的时候调用, 获取选择的选项
       receivedSelectDropItem(data){
         console.log(data);
       },
+      */
 
+
+        /*
       receivedSelectChooser(data){
         console.log('点击了chooser');
         console.log(data);
       },
+      */
 
       /**
        * 收到子组件multiChooser传递的数据的时候进行调用
        * @param data 选中的数据
        */
+      /*
       receivedSelectMultiChooser(data){
         console.log('点击了multiChooser');
         console.log(data);
       }
+      */
+
+
+      // 统一的事件处理函数(四个切换事件)
+      onParaChange(eventName, val){
+        console.log(eventName);
+        console.log(val);
+      }
+
     }
   }
 </script>
