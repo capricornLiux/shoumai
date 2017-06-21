@@ -139,6 +139,8 @@
   import VMultiChooser from '../../components/buy/multiChooser.vue'
   import VCounter from '../../components/buy/counter.vue'
 
+  import _ from 'lodash'
+
   export default {
     // 组件
     components: {
@@ -199,6 +201,16 @@
             value: 2
           }
         ],
+
+
+        // 用户购买数据
+        buyNum : 0,
+        buyType : {},
+        period: {},
+        versions: [],
+
+        // 购买总价
+        totalPrice: 0
       }
     },
 
@@ -233,8 +245,46 @@
 
       // 统一的事件处理函数(四个切换事件)
       onParaChange(eventName, val){
-        console.log(eventName);
-        console.log(val);
+//        console.log(eventName);
+//        console.log(val);
+
+        this[eventName] = val;
+
+        // 调用计算价格方法
+        this.getTotalPrice();
+      },
+
+      /**
+       * 计算总价
+       */
+      getTotalPrice(){
+
+          // 将版本对象数组装换为值数组
+          let buyVersionsArray = _.map(this.versions, (item)=>{
+              return item.value;
+          });
+
+          // 构建网络请求参数
+        let requestPara = {
+            // 进行参数mock
+          buyNumber : this.buyNum,
+          buyType : this.buyType,
+          period : this.period.value,
+          versions : buyVersionsArray
+
+        };
+
+        console.log(requestPara);
+
+        // 使用vue-resource进行网络请求
+        this.$http.post('/api/getPrice', requestPara).then(function successCallBack(response) {
+          console.log('请求总价成功');
+          this.totalPrice = response.data;
+          console.log(this.totalPrice);
+        }, function failCallBack(error) {
+          console.log('请求总价失败');
+          console.log(error);
+        });
       }
 
     }

@@ -25,5 +25,9 @@
   "login": {
     "username":"Lance",
     "userId" : 888
+  },
+
+  "getPrice": {
+    "totalPrice" : 899
   }
 }
