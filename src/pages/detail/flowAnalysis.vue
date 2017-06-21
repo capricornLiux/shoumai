@@ -55,10 +55,11 @@
 
           <!--利用自定义组件multi chooser-->
           <!--<v-multi-chooser v-bind:selections="versionList"-->
-                           <!--v-on:seletedItemArray="receivedSelectMultiChooser"></v-multi-chooser>-->
+          <!--v-on:seletedItemArray="receivedSelectMultiChooser"></v-multi-chooser>-->
 
           <!--使用同一个事件处理函数进行处理-->
-          <v-multi-chooser v-bind:selections="versionList" v-on:on-change="onParaChange('versions', $event)"></v-multi-chooser>
+          <v-multi-chooser v-bind:selections="versionList"
+                           v-on:on-change="onParaChange('versions', $event)"></v-multi-chooser>
 
         </div>
       </div>
@@ -153,7 +154,7 @@
     // 数据
     data(){
       return {
-          // 产品类型
+        // 产品类型
         goodsType: [
           {
             label: '入门版',
@@ -204,8 +205,8 @@
 
 
         // 用户购买数据
-        buyNum : 0,
-        buyType : {},
+        buyNum: 0,
+        buyType: {},
         period: {},
         versions: [],
 
@@ -216,31 +217,31 @@
 
     methods: {
 
-        /*
-      // 收到子组件选择的下拉选项的时候调用, 获取选择的选项
-      receivedSelectDropItem(data){
-        console.log(data);
-      },
-      */
+      /*
+       // 收到子组件选择的下拉选项的时候调用, 获取选择的选项
+       receivedSelectDropItem(data){
+       console.log(data);
+       },
+       */
 
 
-        /*
-      receivedSelectChooser(data){
-        console.log('点击了chooser');
-        console.log(data);
-      },
-      */
+      /*
+       receivedSelectChooser(data){
+       console.log('点击了chooser');
+       console.log(data);
+       },
+       */
 
       /**
        * 收到子组件multiChooser传递的数据的时候进行调用
        * @param data 选中的数据
        */
       /*
-      receivedSelectMultiChooser(data){
-        console.log('点击了multiChooser');
-        console.log(data);
-      }
-      */
+       receivedSelectMultiChooser(data){
+       console.log('点击了multiChooser');
+       console.log(data);
+       }
+       */
 
 
       // 统一的事件处理函数(四个切换事件)
@@ -259,34 +260,48 @@
        */
       getTotalPrice(){
 
-          // 将版本对象数组装换为值数组
-          let buyVersionsArray = _.map(this.versions, (item)=>{
-              return item.value;
-          });
+        // 将版本对象数组装换为值数组
+        let buyVersionsArray = _.map(this.versions, (item) => {
+          return item.value;
+        });
 
-          // 构建网络请求参数
+        // 构建网络请求参数
         let requestPara = {
-            // 进行参数mock
-          buyNumber : this.buyNum,
-          buyType : this.buyType,
-          period : this.period.value,
-          versions : buyVersionsArray
+          // 进行参数mock
+          buyNumber: this.buyNum,
+          buyType: this.buyType,
+          period: this.period.value,
+          versions: buyVersionsArray
 
         };
 
-        console.log(requestPara);
 
         // 使用vue-resource进行网络请求
         this.$http.post('/api/getPrice', requestPara).then(function successCallBack(response) {
           console.log('请求总价成功');
-          this.totalPrice = response.data;
-          console.log(this.totalPrice);
+          console.log(response);
+          console.log(response.data.amount);
+//          this.totalPrice = response.data;
         }, function failCallBack(error) {
           console.log('请求总价失败');
           console.log(error);
         });
-      }
+      },
 
+    },
+
+    // 使用Vue的声明周期方法
+
+    /**
+     * 当Vue实例挂在到DOM的时候进行调用
+     */
+    mounted(){
+      // 为购买信息赋值
+      this.buyNum = 1;
+      this.buyType = this.goodsType[0];
+      this.period = this.periodList[0];
+      this.versions = [this.versionList[0]];
+      this.getTotalPrice();
     }
   }
 </script>
