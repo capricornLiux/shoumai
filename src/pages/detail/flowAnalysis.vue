@@ -68,7 +68,7 @@
           总价：
         </div>
         <div class="sales-board-line-right">
-          {{ price }} 元
+          {{ totalPrice }} 元
         </div>
       </div>
       <div class="sales-board-line">
@@ -277,12 +277,13 @@
 
 
         // 使用vue-resource进行网络请求
-        this.$http.post('/api/getPrice', requestPara).then(function successCallBack(response) {
+        this.$http.post('/api/getPrice', requestPara).then(function (response) {
           console.log('请求总价成功');
-          console.log(response);
+//          console.log(response);
           console.log(response.data.amount);
+          this.totalPrice = response.data.amount;
 //          this.totalPrice = response.data;
-        }, function failCallBack(error) {
+        }, function (error) {
           console.log('请求总价失败');
           console.log(error);
         });

@@ -26,6 +26,6 @@
     "userId": 888
   },
   "getPrice": {
-    "amount": 899
+    "amount" : 899
   }
 }
