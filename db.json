@@ -21,13 +21,11 @@
       "url": "http://hearstone.com"
     }
   ],
-
   "login": {
-    "username":"Lance",
-    "userId" : 888
+    "username": "Lance",
+    "userId": 888
   },
-
   "getPrice": {
-    "totalPrice" : 899
+    "amount": 899
   }
 }
