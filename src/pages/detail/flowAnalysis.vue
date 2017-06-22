@@ -139,39 +139,20 @@
       <!--使用自定义组件 银行选择组件结束-->
 
 
+      <!--确认购买按钮-->
+      <div class="button buy-dialog-btn" v-on:click="confirmBuy">
+        确认购买
+      </div>
+      <!--确认购买按钮结束-->
+
     </my-dialog>
     <!--使用自定义的对话框组件结束-->
 
 
-    <!--<my-dialog :is-show="isShowPayDialog" @on-close="hidePayDialog">-->
-    <!--<table class="buy-dialog-table">-->
-    <!--<tr>-->
-    <!--<th>购买数量</th>-->
-    <!--<th>产品类型</th>-->
-    <!--<th>有效时间</th>-->
-    <!--<th>产品版本</th>-->
-    <!--<th>总价</th>-->
-    <!--</tr>-->
-    <!--<tr>-->
-    <!--<td>{{ buyNum }}</td>-->
-    <!--<td>{{ buyType.label }}</td>-->
-    <!--<td>{{ period.label }}</td>-->
-    <!--<td>-->
-    <!--<span v-for="item in versions">{{ item.label }}</span>-->
-    <!--</td>-->
-    <!--<td>{{ price }}</td>-->
-    <!--</tr>-->
-    <!--</table>-->
-    <!--<h3 class="buy-dialog-title">请选择银行</h3>-->
-    <!--<bank-chooser @on-change="onChangeBanks"></bank-chooser>-->
-    <!--<div class="button buy-dialog-btn" @click="confirmBuy">-->
-    <!--确认购买-->
-    <!--</div>-->
-    <!--</my-dialog>-->
-    <!--<my-dialog :is-show="isShowErrDialog" @on-close="hideErrDialog">-->
-    <!--支付失败！-->
-    <!--</my-dialog>-->
-    <!--<check-order :is-show-check-dialog="isShowCheckOrder" :order-id="orderId" @on-close-check-dialog="hideCheckOrder"></check-order>-->
+    <!--使用自定义组件的检查支付状态-->
+    <check-order v-bind:isShowCheckDialog="isShowCheckDialog" v-bind:order-id="orderId" v-on:close-payStatusChoose="closeCheckOrder"></check-order>
+    <!--使用自定义组件的检查支付状态结束-->
+
   </div>
 </template>
 
@@ -187,6 +168,9 @@
   // 利用银行组件, 放置银行选择内容在对话框组件中(组件之间的嵌套)
   import BankChooser from '../../components/bankChooser.vue'
 
+  // 使用自定义组件
+  import CheckOrder from '../../components/checkOrder.vue'
+
   import _ from 'lodash'
 
   export default {
@@ -201,7 +185,10 @@
       MyDialog,
 
       // 银行选择组件
-      BankChooser
+      BankChooser,
+
+      // 检查状态组件
+      CheckOrder
     },
 
     // 数据
@@ -273,33 +260,6 @@
 
     methods: {
 
-      /*
-       // 收到子组件选择的下拉选项的时候调用, 获取选择的选项
-       receivedSelectDropItem(data){
-       console.log(data);
-       },
-       */
-
-
-      /*
-       receivedSelectChooser(data){
-       console.log('点击了chooser');
-       console.log(data);
-       },
-       */
-
-      /**
-       * 收到子组件multiChooser传递的数据的时候进行调用
-       * @param data 选中的数据
-       */
-      /*
-       receivedSelectMultiChooser(data){
-       console.log('点击了multiChooser');
-       console.log(data);
-       }
-       */
-
-
       // 统一的事件处理函数(四个切换事件)
       onParaChange(eventName, val){
 //        console.log(eventName);
@@ -362,6 +322,53 @@
       receivedBankChange(data){
         console.log('received bank changed');
         console.log(data);
+        this.bankId = data.id;
+      },
+
+      // 点击确认购买按钮的时候调用
+      confirmBuy(){
+          console.log('点击了确认购买按钮');
+
+        // 将版本对象数组装换为值数组
+        let buyVersionsArray = _.map(this.versions, (item) => {
+          return item.value;
+        });
+
+        // 构建网络请求参数
+        let requestPara = {
+          // 进行参数mock
+          buyNumber: this.buyNum,
+          buyType: this.buyType.value,
+          period: this.period.value,
+          versions: buyVersionsArray,
+          bankId : this.bankId
+        };
+
+        // 发送网络请求
+        this.$http.post('/api/createOrder', requestPara).then((response)=>{
+            // 请求成功
+          // 保存订单号码
+          this.orderId = response.data.orderId;
+          // 关闭对话框
+          this.isShowDialog = false;
+
+          // 显示选择支付状态对话框
+          this.isShowCheckDialog = true;
+
+          // 打开确认对话框
+        }, (error)=>{
+          // this.
+          console.log(error);
+
+        })
+      },
+
+      // 收到子组件emit的事件的时候调用
+      closeCheckOrder(){
+
+          console.log('关闭对话框了');
+          // 关闭对话框
+        this.isShowCheckDialog = false;
       }
 
     },

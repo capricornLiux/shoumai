@@ -27,5 +27,12 @@
   },
   "getPrice": {
     "amount" : 899
+  },
+  "createOrder": {
+    "orderId": "id8899"
+  },
+
+  "checkOrder" : {
+    "status" : 1
   }
 }
