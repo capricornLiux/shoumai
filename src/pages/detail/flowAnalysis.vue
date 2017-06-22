@@ -74,7 +74,7 @@
       <div class="sales-board-line">
         <div class="sales-board-line-left">&nbsp;</div>
         <div class="sales-board-line-right">
-          <div class="button">
+          <div class="button" v-on:click="clickBuyNow">
             立即购买
           </div>
         </div>
@@ -102,6 +102,40 @@
         <li>用户所在地理区域分布状况等</li>
       </ul>
     </div>
+
+    <!--使用自定义的对话框组件-->
+    <my-dialog v-bind:is-show="isShowDialog" v-on:closeDialog="closeDialog">
+      <!--购买信息表-->
+      <table class="buy-dialog-table">
+
+        <!--表头-->
+        <tr>
+          <th>购买数量</th>
+          <th>产品类型</th>
+          <th>有效时间</th>
+          <th>产品版本</th>
+          <th>总价</th>
+        </tr>
+        <!--表头结束-->
+
+        <!--表格内容-->
+        <tr>
+          <td>{{ buyNum }}</td>
+          <td>{{ buyType.label }}</td>
+          <td>{{ period.label }}</td>
+          <!--<td>{{ versions }}</td>-->
+          <td>
+            <span v-for="item in versions">{{ item.label+' ' }}</span>
+          </td>
+          <td>{{ totalPrice }}</td>
+        </tr>
+        <!--表格内容结束-->
+
+      </table>
+    </my-dialog>
+    <!--使用自定义的对话框组件结束-->
+
+
     <!--<my-dialog :is-show="isShowPayDialog" @on-close="hidePayDialog">-->
     <!--<table class="buy-dialog-table">-->
     <!--<tr>-->
@@ -140,6 +174,9 @@
   import VMultiChooser from '../../components/buy/multiChooser.vue'
   import VCounter from '../../components/buy/counter.vue'
 
+  // 利用dialog组件, 弹出购买信息和选择银行对话框
+  import MyDialog from '../../components/dialog.vue'
+
   import _ from 'lodash'
 
   export default {
@@ -148,7 +185,10 @@
       VSelection,
       VChooser,
       VMultiChooser,
-      VCounter
+      VCounter,
+
+      // 对话框组件
+      MyDialog
     },
 
     // 数据
@@ -211,7 +251,10 @@
         versions: [],
 
         // 购买总价
-        totalPrice: 0
+        totalPrice: 0,
+
+        // 是否显示对话框属性
+        isShowDialog: false
       }
     },
 
@@ -288,6 +331,19 @@
           console.log(error);
         });
       },
+
+      // 点击立即购买按钮的时候调用
+      clickBuyNow(){
+        // 将对话框的显示属性设置为true
+        console.log('test');
+        this.isShowDialog = true;
+      },
+
+      // 点击关闭按钮的时候调用
+      closeDialog(){
+//          console.log('close');
+        this.isShowDialog = false;
+      }
 
     },
 
