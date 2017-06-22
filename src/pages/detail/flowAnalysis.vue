@@ -254,7 +254,12 @@
         totalPrice: 0,
 
         // 是否显示对话框属性
-        isShowDialog: false
+        isShowDialog: false,
+
+        // 是否显示选择支付状态对话框
+        isShowCheckDialog : false,
+
+        orderId : null
       }
     },
 
