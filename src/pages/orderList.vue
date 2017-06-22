@@ -8,22 +8,24 @@
       <div class="order-list-option">
         选择产品
         <!--使用自定义组件-->
-        <v-selection :selections="products"></v-selection>
+        <v-selection :selections="products" v-on:on-change="productChange"></v-selection>
       </div>
 
       <div class="order-list-option">
         开始日期
-        <my-datepicker></my-datepicker>
+        <my-datepicker @on-change="sDateChange"></my-datepicker>
       </div>
 
       <div class="order-list-option">
         结束日期
-        <my-datepicker></my-datepicker>
+        <my-datepicker @on-change="eDateChange"></my-datepicker>
       </div>
 
       <div class="order-list-option">
         关键词:
-        <input type="text">
+        <!--<input type="text" class="order-query" v-model="primaryKey">-->
+        <!--当光标离开的时候才更改对应的model-->
+        <input type="text" class="order-query" v-model.lazy="primaryKey">
       </div>
     </div>
     <!--订单过滤选项结束-->
@@ -151,14 +153,41 @@
         this.$http.post('/api/getOrderList', requestObject).then((response) => {
           // 保存列表数据
           this.tableData = response.data.list;
-
+          console.log('请求订单数据成功');
         }, (error) => {
           console.log(error);
           console.log('请求订单数据失败');
         });
       },
 
+      // 切换产品的时候调用
+      productChange(obj){
 
+          // 更换数据参数
+        this.productId = obj.value;
+        // 发送网络请求
+        this.getOrderList();
+      },
+
+      // 更换开始日期的时候调用
+      sDateChange(date){
+          this.startDate = date;
+          this.getOrderList();
+      },
+
+      // 更换结束日期的时候调用
+      eDateChange(date){
+          this.endDate = date;
+          this.getOrderList();
+      }
+    },
+
+    // 利用watch监听属性的变化
+    watch:{
+        // 当输入的关键词变化的时候, 调用这个方法
+        primaryKey(){
+            this.getOrderList();
+        }
     }
   }
 </script>
