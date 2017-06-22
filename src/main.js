@@ -19,6 +19,9 @@ import DataStatistics from './pages/detail/dataStatistics.vue'
 import DataForecast from './pages/detail/dataForecast.vue'
 import FlowAnalysis from './pages/detail/flowAnalysis.vue'
 
+// 使用订单页面
+import OrderList from './pages/orderList.vue'
+
 
 Vue.config.productionTip = false
 
@@ -79,6 +82,12 @@ let router = new VueRouter({
           component : AdPublic
         }
       ]
+    },
+
+    // 商品订单页面
+    {
+      path : '/order',
+      component : OrderList
     }
   ]
 });
