@@ -125,13 +125,20 @@
           <td>{{ period.label }}</td>
           <!--<td>{{ versions }}</td>-->
           <td>
-            <span v-for="item in versions">{{ item.label+' ' }}</span>
+            <span v-for="item in versions">{{ item.label + ' ' }}</span>
           </td>
           <td>{{ totalPrice }}</td>
         </tr>
         <!--表格内容结束-->
 
       </table>
+
+      <p>请选择银行</p>
+      <!--使用自定义组件 银行选择组件-->
+      <bank-chooser v-on:bank-change="receivedBankChange"></bank-chooser>
+      <!--使用自定义组件 银行选择组件结束-->
+
+
     </my-dialog>
     <!--使用自定义的对话框组件结束-->
 
@@ -177,6 +184,9 @@
   // 利用dialog组件, 弹出购买信息和选择银行对话框
   import MyDialog from '../../components/dialog.vue'
 
+  // 利用银行组件, 放置银行选择内容在对话框组件中(组件之间的嵌套)
+  import BankChooser from '../../components/bankChooser.vue'
+
   import _ from 'lodash'
 
   export default {
@@ -188,7 +198,10 @@
       VCounter,
 
       // 对话框组件
-      MyDialog
+      MyDialog,
+
+      // 银行选择组件
+      BankChooser
     },
 
     // 数据
@@ -343,6 +356,12 @@
       closeDialog(){
 //          console.log('close');
         this.isShowDialog = false;
+      },
+
+      // 当父组件收到子组件更换银行的时候进行调用
+      receivedBankChange(data){
+        console.log('received bank changed');
+        console.log(data);
       }
 
     },
